@@ -1,6 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap" rel="stylesheet">
+    <script src="index.js"></script>
+    <title>EarthQuickly</title>
+</head>
+
 <body>
-EarthQuickly
-</body
+    <header>
+        <h1 id="title">EarthQuickly</h1>
+        <span id="titlebutton">
+            <!--<button onclick="Home()" >Home</button>-->
+            <button onclick="Features()">Features</button>
+            <button onclick="Download()">Download</button>
+            <button onclick="Others()">Others</button>
+        </span>
+    </header>
+    <div id="body">
+        <h1>地震・津波情報表示ソフトウェア<br>EarthQuickly</h1>
+        <h2>EarthQuicklyは、気象庁が発表する緊急地震速報・地震情報・津波情報や、<br>NIEDの強震モニタを取得して表示するWindows向けソフトウェアです。</h2>
+        <img src="Source/index_2.jpg">
+        <br>
+        <u>
+            <h1 id="Features">特徴 - Features</h1>
+        </u>
+        <div id="f1">
+            <h2>1. 緊急地震速報をいち早く受信</h2>
+            <h3>気象庁から発表される緊急地震速報をリアルタイムで受信し、<br>揺れへの注意・警戒を呼び掛けます。<br>また、強震モニタからリアルタイムの揺れの状況を取得し、<br>揺れを即座に把握することができます。
+            </h3>
+            <img src="Source/index_5.jpg">
+        </div>
+        <div id="f2">
+            <h2>2. 最新の地震情報を受信・表示</h2>
+            <h3>気象庁が発表する地震情報を受信し、<br>視覚的に分かりやすく表示します。</h3>
+            <img src="Source/index_3.jpg">
+        </div>
+        <div id="f3">
+            <h2>3. 津波情報も併せて表示</h2>
+            <h3>気象庁が発表する津波警報等（大津波警報・津波警報・津波注意報）を受信し、<br>津波への警戒や避難を促します。</h3>
+            <img src="Source/index_4.jpg">
+        </div>
+        <br>
+        <div id="caution">
+            <h1>注意事項 - Caution</h1>
+            <h2>このソフトは、<u>現在開発途中のベータ版です。</u></h2>
+            <h2>予期せぬ動作をしたり、地震発生時など重要な時に正常な動作をしない可能性があります。</h2>
+            <h2>そのためこのソフトを利用される際は、<u><strong>自己責任</strong></u>にてご利用ください。</h2>
+            <h2>また、万が一このソフトに問題が発生しても最新の情報が得られるようにするため、<br>このソフトを利用される際は他の情報ソースと併用してください。</h2>
+            <h2>このソフトには地震検出機能が備わっていますが、開発中の機能のため誤検出を起こす場合があります。</h2>
+            <h2>このソフトで利用している、緊急地震速報には様々な特性があります。それらを理解した上でご利用ください。<br>→参考 : <a
+                    href="https://www.data.jma.go.jp/svd/eew/data/nc/shikumi/whats-eew.html" style="color: yellow;">緊急地震速報とは（気象庁サイト）</a>
+            </h2>
+        </div>
+        <div id="download">
+            <h1>最新版のダウンロード - Download</h1>
+            <h2 style="color: red;">現在、ソフトの公開は開始されていません。<br>近日中に公開される予定です。</h2>
+            <button id="dlbutton" onclick="Download()">ダウンロードページへ</button>
+        </div>
+        <br>
+    </div>
+    <footer>
+        <h4>EarthQuickly - Web site<br>🄫 Ameuma773 2022</h4>
+    </footer>
+</body>
+
 </html>
