@@ -21,8 +21,18 @@
     </script>
     <script>
         function DoDownload() {
-            alert("KyoshinQuicklyは、7月31日に公開が開始されます。");
-        }
+    let check = window.confirm('ダウンロード前に必ず上記の注意事項お読みください。\nお読みになりましたか？');
+    
+    if(check) {
+        const url = 'https://github.com/Ameuma773/KyoshinQuickly/releases/download/v1.0.0/KyoshinQuickly.1.0.0.zip';
+        const a = document.createElement("a");
+        document.body.appendChild(a);
+        a.download = 'KyoshinQuickly v1.0.0.zip';
+        a.href = url;
+        a.click();
+        a.remove();
+    }
+}
     </script>
     <style>
         a{
@@ -73,22 +83,15 @@
         <div id="caution">
             <h1>注意事項 - Caution</h1>
             <h2>予期せぬ動作をしたり、地震発生時など重要な時に正常な動作をしない可能性があります。<br>不具合を発見された場合は、開発者のTwitterのDMまでお願いします。</h2>
-            <br>
-            <h1>禁止事項 - Prohibitions</h1>
-            <h2>KyoshinQuicklyの利用にあたり、以下の行為を禁止とします。</h2>
-            <span style="color: yellow;">
-                <h2>・著作権を侵害する行為（再配布・自作発言等）</h2>
-                <h2>・逆アセンブル/デコンパイル等のソースコードを解読する行為</h2>
-                </h2>
+            <h2>このソフトウェアのソースは、<a href="https://github.com/Ameuma773/KyoshinQuickly">GitHub</a> にて公開しています。</h2>
         </div>
         <div id="download">
-            <!--<h2 style="color: red;">ダウンロード前に、必ず上記の注意事項・禁止事項をお読みください。</h2>-->
-            <h2 style="color: red;">現在、公開は開始されていません。<br>公開開始は、7月31日15時を予定しています。</h2>
-            <!--<h2>公開中の最新版 / Ver : 1.0.0<br>公開日 : 2022年7月31日<br>ダウンロードサイズ : 約110MB</h2>-->
+            <h2 style="color: red;">ダウンロード前に、必ず上記の注意事項をお読みください。</h2>
+            <h2>公開中の最新版 / Ver : 1.0.0<br>公開日 : 2022年7月31日<br>ダウンロードサイズ : 約90MB</h2>
             <h3>推奨動作環境</h3>
             <h4>OS : Windows7以上<br>CPU : 2コア以上のCPU<br>インターネット : 安定して1Mbps以上の通信ができる環境
             </h4>
-            <!--<button id="dlbutton" onclick="DoDownload()">最新版をダウンロード</button>-->
+            <button id="dlbutton" onclick="DoDownload()">最新版をダウンロード</button>
         </div>
         <div id="ForWeb">
             <h2>緊急地震速報や津波情報等も取得できる<br><a style="color: yellow;"
