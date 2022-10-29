@@ -3,7 +3,7 @@ EarthQuicklyは、気象庁が発表する緊急地震速報・地震情報・�
 <br>
 NIEDの強震モニタを取得して表示するWindows向けソフトウェアです。
 
-## ! 注意
+## 注意
 EarthQuicklyは、オープンソースソフトウェアではありません。
 <br>
 このリポジトリは、EarthQuicklyのWebサイト用のリポジトリです。
