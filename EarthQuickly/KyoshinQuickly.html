@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap" rel="stylesheet">
+    <link rel="icon" href="Source/icon.ico">
+    <script src="index.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BQFG6WW8TV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-BQFG6WW8TV');
+    </script>
+    <script>
+        function DoDownload() {
+    let check = window.confirm('ダウンロード前に必ず上記の注意事項お読みください。\nお読みになりましたか？');
+    
+    if(check) {
+        const url = 'https://github.com/Ameuma773/KyoshinQuickly/releases/download/v1.0.0/KyoshinQuickly.1.0.0.zip';
+        const a = document.createElement("a");
+        document.body.appendChild(a);
+        a.download = 'KyoshinQuickly v1.0.0.zip';
+        a.href = url;
+        a.click();
+        a.remove();
+    }
+}
+    </script>
+    <style>
+        a{
+            color: yellow;
+        }
+    </style>
+    <title>KyoshinQuickly</title>
+</head>
+
+<body>
+    <header>
+        <h1 id="title">KyoshinQuickly</h1>
+        <span id="titlebutton">
+            <!--<button onclick="Home()" >Home</button>-->
+            <button onclick="Home()" style="width: 300px;">EarthQuicklyのページへ</button>
+        </span>
+    </header>
+    <div id="body">
+        <h1>KyoshinQuickly</h1>
+        <h2>KyoshinQuicklyは、複数の強震モニタ観測点のリアルタイム震度を分かりやすく表示する、Windows向けソフトウェアです。</h2>
+        <img src="Source/Kyoshin1.png">
+        <br>
+        <u>
+            <h1 id="Features">特徴 - Features</h1>
+        </u>
+        <div id="f1">
+            <h2>"複数地点の" 今の震度を分かりやすく表示</h2>
+            <h3>強震モニタから今現在の震度を各観測点ごとに取得できます。<br>取得したデータを"リアルタイム震度"と"気象庁震度階級"の二つで表示します。
+            </h3>
+            <img src="Source/Kyoshin3.png">
+        </div>
+        <div id="f2">
+            <h2>カスタマイズ性の高い画面</h2>
+            <h3>画面上の文字色や背景色は自由に変更することができ、自分好みの表示にすることができます。</h3>
+            <img src="Source/Kyoshin2.png">
+        </div>
+        <br>
+        <h1>謝辞 - Thanks</h1>
+        <div id="caution">
+            <h1>使用ライブラリ・データ等</h1>
+            <h2>このソフトには、ingen084 さん制作の <a href="https://github.com/ingen084/KyoshinMonitorLib">KyoshinMonitorLib</a>
+                というライブラリを使用しています。</h2>
+        </div>
+        <div id="caution">
+            <h1>情報取得先</h1>
+            <h2><a href="https://www.bosai.go.jp/">防災科学技術研究所</a> 様 (強震モニタ)</h2>
+        </div>
+        <div id="caution">
+            <h1>注意事項 - Caution</h1>
+            <h2>予期せぬ動作をしたり、地震発生時など重要な時に正常な動作をしない可能性があります。<br>不具合を発見された場合は、開発者のTwitterのDMまでお願いします。</h2>
+            <h2>このソフトウェアのソースは、<a href="https://github.com/Ameuma773/KyoshinQuickly">GitHub</a> にて公開しています。</h2>
+        </div>
+        <div id="download">
+            <h2 style="color: red;">ダウンロード前に、必ず上記の注意事項をお読みください。</h2>
+            <h2>公開中の最新版 / Ver : 1.0.0<br>公開日 : 2022年7月31日<br>ダウンロードサイズ : 約90MB</h2>
+            <h3>推奨動作環境</h3>
+            <h4>OS : Windows7以上<br>CPU : 2コア以上のCPU<br>インターネット : 安定して1Mbps以上の通信ができる環境
+            </h4>
+            <button id="dlbutton" onclick="DoDownload()">最新版をダウンロード</button>
+        </div>
+        <div id="ForWeb">
+            <h2>緊急地震速報や津波情報等も取得できる<br><a style="color: yellow;"
+                    href="https://ameuma773.github.io/EarthQuickly/">EarthQuickly</a> もあります。<br>併せてご利用ください。</h2>
+        </div>
+        <br>
+    </div>
+    <footer>
+        <h4>KyoshinQuickly - Web site<br>🄫 Ameuma773 2022</h4>
+    </footer>
+</body>
+
+</html>
