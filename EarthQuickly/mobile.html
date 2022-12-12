@@ -547,37 +547,25 @@
             }
         }
 
-        function ShowKMoni(lat, lon, radius) {
-            //var aaa = 0;
-            //map.eachLayer(function (layer) {
-            //    aaa++;
-            //});
-            //console.log(aaa);
+        function KMoni(lat, lon, color) {
 
-            KMoni_Layer.clearLayers();
-
-            var intensity = json["realTimeData"]["intensity"];
-
-            var a = 0;
-            PointList["items"].forEach(point => {
-                //console.log(point[0] + "," + point[1]);
-
-                var circle = L.circleMarker([point[0], point[1]], {
-                    radius: radius,
-                    color: ConvertStringToColor(intensity.charAt(a)),
+                var circle = L.circleMarker(lat, lon, {
+                    radius: 2.5,
+                    color: color,
                     fillOpacity: 1
                 })
-
                 KMoni_Layer.addLayer(circle);
-                a++;
-            });
-            map.addLayer(KMoni_Layer);
         }
 
-        function ConvertStringToColor(string) {
-            //console.log(colorList[string]);
-            return colorList[string];
-        }</script>
+        function KMoni_Add(){
+            map.addLayer(KMoni_Layer);
+        }
+        
+        function KMoni_Clear() {
+
+            KMoni_Layer.clearLayers();
+        }
+        </script>
 </body>
 
 </html>
