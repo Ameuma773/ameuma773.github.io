@@ -377,12 +377,10 @@
                 radius = 0.5;
             }
 
-            //console.log("ズームレベル : " + zoom);
+            console.log("ズームレベル : " + zoom);
+            KMoni(35, 135, "#FFFFFF");
+            KMoni_Add();
         });
-
-        if (localStorage.getItem('QuakeInterval') != null) {
-            GetQuakeInterval = Number(localStorage.getItem('QuakeInterval')) * 1000;
-        }
 
         //var tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         //attribution: '© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
@@ -549,8 +547,8 @@
 
         function KMoni(lat, lon, color) {
 
-                var circle = L.circleMarker(lat, lon, {
-                    radius: 2.5,
+                var circle = L.circleMarker([lat, lon], {
+                    radius: 5,
                     color: color,
                     fillOpacity: 1
                 })
