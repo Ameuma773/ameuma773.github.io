@@ -202,8 +202,7 @@
 
     @-webkit-keyframes load5 {
 
-        0%,
-        100% {
+        0%, 100% {
             box-shadow: 0em -2.6em 0em 0em #ffffff, 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2), 2.5em 0em 0 0em rgba(255, 255, 255, 0.2), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.2), 0em 2.5em 0 0em rgba(255, 255, 255, 0.2), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.2), -2.6em 0em 0 0em rgba(255, 255, 255, 0.5), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.7);
         }
 
@@ -238,8 +237,7 @@
 
     @keyframes load5 {
 
-        0%,
-        100% {
+        0%, 100% {
             box-shadow: 0em -2.6em 0em 0em #ffffff, 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2), 2.5em 0em 0 0em rgba(255, 255, 255, 0.2), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.2), 0em 2.5em 0 0em rgba(255, 255, 255, 0.2), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.2), -2.6em 0em 0 0em rgba(255, 255, 255, 0.5), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.7);
         }
 
@@ -304,7 +302,6 @@
         font-size: x-large;
     }
 </style>
-
 <body>
     <div class="container">
         <div id="map" style="background-color: #181C18;"></div>
@@ -380,8 +377,12 @@
                 radius = 0.5;
             }
 
-            console.log("ズームレベル : " + zoom);
+            //console.log("ズームレベル : " + zoom);
         });
+
+        if (localStorage.getItem('QuakeInterval') != null) {
+            GetQuakeInterval = Number(localStorage.getItem('QuakeInterval')) * 1000;
+        }
 
         //var tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         //attribution: '© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
@@ -548,24 +549,23 @@
 
         function KMoni(lat, lon, color) {
 
-            var circle = L.circleMarker([lat, lon], {
-                radius: 5,
-                color: color,
-                fillOpacity: 1
-            })
-            KMoni_Layer.addLayer(circle);
-            map.addLayer(KMoni_Layer);
+                var circle = L.circleMarker(lat, lon, {
+                    radius: 2.5,
+                    color: color,
+                    fillOpacity: 1
+                })
+                KMoni_Layer.addLayer(circle);
         }
 
-        function KMoni_Add() {
+        function KMoni_Add(){
             map.addLayer(KMoni_Layer);
         }
-
+        
         function KMoni_Clear() {
 
             KMoni_Layer.clearLayers();
         }
-    </script>
+        </script>
 </body>
 
 </html>
