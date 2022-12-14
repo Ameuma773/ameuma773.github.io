@@ -549,8 +549,8 @@
 
         function KMoni(lat, lon, color) {
 
-                var circle = L.circleMarker(lat, lon, {
-                    radius: 2.5,
+                var circle = L.circleMarker([lat, lon], {
+                    radius: 5,
                     color: color,
                     fillOpacity: 1
                 })
