@@ -140,11 +140,29 @@ footer {
     border-radius: 1em;
 }
 
-@media screen and (max-width: 590px) {
+
+@media screen and (max-width: 960px) {
+    #a{
+        font-size: larger;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    #a{
+        font-size: medium;
+    }
+}
+
+@media screen and (max-width: 670px) {
     body {
         font-family: 'Noto Sans JP', sans-serif;
         margin: 0 auto;
         text-align: center;
+        font-size: small;
+    }
+
+    #a{
+        font-size: small;
     }
 
     #title {
@@ -157,7 +175,7 @@ footer {
         color: white;
         position: absolute;
         width: 100%;
-        height: 230px;
+        height: 180px;
         top: 0;
         left: 0;
         margin: 0 auto;
@@ -171,7 +189,7 @@ footer {
     #body {
         position: relative;
         text-align: center;
-        top: 240px;
+        top: 180px;
         margin: 0 auto;
     }
 
