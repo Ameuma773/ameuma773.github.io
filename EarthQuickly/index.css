@@ -142,13 +142,13 @@ footer {
 
 
 @media screen and (max-width: 960px) {
-    #a{
+    #a {
         font-size: larger;
     }
 }
 
 @media screen and (max-width: 750px) {
-    #a{
+    #a {
         font-size: medium;
     }
 }
@@ -158,10 +158,6 @@ footer {
         font-family: 'Noto Sans JP', sans-serif;
         margin: 0 auto;
         text-align: center;
-        font-size: small;
-    }
-
-    #a{
         font-size: small;
     }
 
@@ -228,7 +224,7 @@ footer {
     #download {
         font-size: xx-small;
     }
-    
+
     #ForWeb {
         font-size: xx-small;
     }
@@ -247,5 +243,35 @@ footer {
         top: 220px;
         bottom: 0;
         color: white;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    #a {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #a {
+        font-size: 10px;
+    }
+
+    #b {
+        font-size: medium;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    #a {
+        font-size: xx-small;
+    }
+
+    #b {
+        font-size: medium;
+    }
+    button {
+        width: 100px;
+        height: 50px;
     }
 }
