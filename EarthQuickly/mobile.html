@@ -327,11 +327,13 @@
         var geojsonLayer_Saibun;
         var geojsonLayer_Cities;
 
+        var KMoni__Colors = [];
+
         var Filled_Layer;
 
-        var Quake_Mode = 1;
-
         var KMoni_Layer = new L.layerGroup();
+
+        var KMoni_Timer = setInterval(KMoni, 1000);
 
         //var JsonString_Japan = "";
         var JsonString_Saibun;
@@ -358,7 +360,7 @@
         var Color_0 = "#008b8b";
         var MojiColor_0 = "#ffffff";
 
-        map.on('zoomend', async function () {
+        map.on('zoomend', function () {
             var zoom = map.getZoom();
             if (zoom > 9) {
                 map.addLayer(geojsonLayer_Cities);
@@ -383,18 +385,11 @@
             }
 
             //console.log("ズームレベル : " + zoom);
-
-            //const url = "https://api.p2pquake.net/v2/history?codes=551&limit=50";
-
-            //const response = await fetch(url)
-            //    .then(response => response.json())
-            //    .then(data => {
-            //        QuakeJson = data;
-            //        QuakeSelect(29);
-            //    })
-
-            //FillPolygon(1,"511","#FF0000");
         });
+
+        if (localStorage.getItem('QuakeInterval') != null) {
+            GetQuakeInterval = Number(localStorage.getItem('QuakeInterval')) * 1000;
+        }
 
         //var tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         //attribution: '© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
@@ -492,6 +487,7 @@
         geojson();
 
         var JMAPointsJson;
+        var KMoniPointsJson;
         var QuakeJson;
         var id;
         var marker = L.featureGroup();
@@ -501,429 +497,6 @@
         var GetTiming = 0;
         var GetEEWInterval = 2;
         var GetQuakeInterval = 30000;
-        var AreaMaxShindo = Array(808);
-
-        function QuakeSelect(num) {
-            NowMode = 0;
-
-            marker = L.featureGroup();
-
-            map.eachLayer(function (layer) {
-
-                if (layer.myTag && layer.myTag === "Shindo") {
-                    map.removeLayer(layer)
-                }
-                if (layer.myTag && layer.myTag === "Shingen") {
-                    map.removeLayer(layer)
-                }
-                layer = null;
-            });
-
-            Filled_Layer = null;
-
-            if (QuakeJson[num]["issue"]["type"] != "ScalePrompt") {
-                var geojsonFeature = [{
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [QuakeJson[num]["earthquake"]["hypocenter"]["longitude"], QuakeJson[num]["earthquake"]["hypocenter"]["latitude"]]
-                    }
-                }];
-                L.geoJson(geojsonFeature,
-                    {
-                        onEachFeature: function (feature, layer) {
-                            if (feature.properties && feature.properties.popupContent) {
-                                layer.bindPopup(feature.properties.popupContent);
-                            }
-                            layer.myTag = "Shingen"
-                        },
-                        pointToLayer: function (feature, latlng) {
-                            var myIcon = L.icon({
-                                iconUrl: 'https://ameuma773.github.io/EarthQuicklyForWeb/Source/Singen.png',
-                                iconSize: [50, 50],
-                                popupAnchor: [0, -40]
-                            });
-                            return L.marker(latlng, { icon: myIcon, zIndexOffset: 100 });
-                        }
-                    }
-                ).addTo(map).bindPopup("震源地 : " + QuakeJson[num]["earthquake"]["hypocenter"]["name"] + "<br>震源の深さ : " + QuakeJson[num]["earthquake"]["hypocenter"]["depth"] + "km");
-
-                marker.addLayer(L.geoJson(geojsonFeature,
-                    {
-                        onEachFeature: function (feature, layer) {
-                            if (feature.properties && feature.properties.popupContent) {
-                                layer.bindPopup(feature.properties.popupContent);
-                            }
-                            layer.myTag = "Shingen"
-                        },
-                        pointToLayer: function (feature, latlng) {
-                            var myIcon = L.icon({
-                                iconUrl: 'https://ameuma773.github.io/EarthQuicklyForWeb/Source/Singen.png',
-                                iconSize: [50, 50],
-                                popupAnchor: [0, -40]
-                            });
-                            return L.marker(latlng, { icon: myIcon });
-                        }
-                    }
-                ));
-                AreaMaxShindo = Array(808);
-
-                QuakeJson[num]["points"].forEach(element => {
-
-                    var result = JMAPoints.indexOf(element["addr"]);
-                    if (result != -1) {
-
-                        var ImgUrl = "";
-                        var PointShindo = "";
-                        var PointColor;
-                        if (element["scale"] == 10) {
-                            ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int1.jpg"
-                            PointShindo = "震度1";
-                            PointColor = Color_1;
-                        } else if (element["scale"] == 20) {
-                            ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int2.jpg"
-                            PointColor = Color_2;
-                            PointShindo = "震度2";
-                        } else if (element["scale"] == 30) {
-                            ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int3.jpg"
-                            PointColor = Color_3;
-                            PointShindo = "震度3";
-                        } else if (element["scale"] == 40) {
-                            ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int4.jpg"
-                            PointColor = Color_4;
-                            PointShindo = "震度4";
-                        } else if (element["scale"] == 45) {
-                            ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int50.jpg"
-                            PointColor = Color_50;
-                            PointShindo = "震度5弱";
-                        } else if (element["scale"] == 46) {
-                            ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int50.jpg"
-                            PointColor = Color_50;
-                            PointShindo = "震度5弱以上と推定";
-                        } else if (element["scale"] == 50) {
-                            ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int55.jpg"
-                            PointColor = Color_55;
-                            PointShindo = "震度5強";
-                        } else if (element["scale"] == 55) {
-                            ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int60.jpg"
-                            PointColor = Color_60;
-                            PointShindo = "震度6弱";
-                        } else if (element["scale"] == 60) {
-                            ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int65.jpg"
-                            PointColor = Color_65;
-                            PointShindo = "震度6強";
-                        } else if (element["scale"] == 70) {
-                            ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int7.jpg"
-                            PointColor = Color_7;
-                            PointShindo = "震度7";
-                        }
-
-                        var geojsonFeature = [{
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [JMAPointsJson[result]["lon"], JMAPointsJson[result]["lat"]]
-                            }
-                        }];
-
-                        if (Quake_Mode == 0 || Quake_Mode == 1) {
-
-                            L.geoJson(geojsonFeature,
-                                {
-                                    onEachFeature: function (feature, layer) {
-                                        if (feature.properties && feature.properties.popupContent) {
-                                            layer.bindPopup(feature.properties.popupContent);
-                                        }
-                                        layer.myTag = "Shindo"
-                                    },
-                                    pointToLayer: function (feature, latlng) {
-                                        var myIcon = L.icon({
-                                            iconUrl: ImgUrl,
-                                            iconSize: [25, 25],
-                                            popupAnchor: [0, -40]
-                                        });
-                                        return L.marker(latlng, { icon: myIcon, zIndexOffset: element["scale"] });
-                                    }
-                                }
-                            ).addTo(map).bindPopup(element["addr"] + "<br>" + PointShindo);
-                        }
-
-                        if (Quake_Mode != 2) {
-                            marker.addLayer(L.geoJson(geojsonFeature,
-                                {
-                                    onEachFeature: function (feature, layer) {
-                                        if (feature.properties && feature.properties.popupContent) {
-                                            layer.bindPopup(feature.properties.popupContent);
-                                        }
-                                        layer.myTag = "Shindo"
-                                    },
-                                    pointToLayer: function (feature, latlng) {
-                                        var myIcon = L.icon({
-                                            iconUrl: ImgUrl,
-                                            iconSize: [25, 25],
-                                            popupAnchor: [0, -40]
-                                        });
-                                        return L.marker(latlng, { icon: myIcon, zIndexOffset: element["scale"] });
-                                    }
-                                }
-                            ));
-                        }
-
-                        if (Quake_Mode == 1 || Quake_Mode == 2) {
-                            if (AreaMaxShindo[Number(JMAPointsJson[result]["area"]["code"])] < element["scale"]) {
-                            } else if (AreaMaxShindo[Number(JMAPointsJson[result]["area"]["code"])] === undefined) {
-                                AreaMaxShindo[Number(JMAPointsJson[result]["area"]["code"])] = element["scale"];
-                            }
-                        }
-                    }
-                });
-
-                map.eachLayer(function (layer) {
-
-                    if (layer.myTag && layer.myTag === "Filled") {
-                        map.removeLayer(layer)
-                    }
-                })
-
-                for (let iii = 0; iii < AreaMaxShindo.length; iii++) {
-                    var element = AreaMaxShindo[iii];
-                    var ImgUrl = "";
-                    var PointShindo = "";
-                    var PointColor;
-                    if (element == "10") {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int1.jpg"
-                        PointShindo = "震度1";
-                        PointColor = Color_1;
-                    } else if (element == "20") {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int2.jpg"
-                        PointColor = Color_2;
-                        PointShindo = "震度2";
-                    } else if (element == "30") {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int3.jpg"
-                        PointColor = Color_3;
-                        PointShindo = "震度3";
-                    } else if (element == "40") {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int4.jpg"
-                        PointColor = Color_4;
-                        PointShindo = "震度4";
-                    } else if (element == "45") {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int50.jpg"
-                        PointColor = Color_50;
-                        PointShindo = "震度5弱";
-                    } else if (element == "46") {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int50.jpg"
-                        PointColor = Color_50;
-                        PointShindo = "震度5弱以上と推定";
-                    } else if (element == "50") {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int55.jpg"
-                        PointColor = Color_55;
-                        PointShindo = "震度5強";
-                    } else if (element == "55") {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int60.jpg"
-                        PointColor = Color_60;
-                        PointShindo = "震度6弱";
-                    } else if (element == "60") {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int65.jpg"
-                        PointColor = Color_65;
-                        PointShindo = "震度6強";
-                    } else if (element == "70") {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int7.jpg"
-                        PointColor = Color_7;
-                        PointShindo = "震度7";
-                    }
-
-                    if (PointShindo != "") {
-                        FillPolygon(1, iii.toString(), PointColor);
-                        if (Quake_Mode == 2) {
-                            var latlon;
-                            map.eachLayer(function (layer) {
-                                if (layer.myTag && layer.myTag === "Filled") {
-                                    latlon = layer.getCenter();
-                                }
-                            })
-
-                            var geojsonFeature = [{
-                                "type": "Feature",
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": [latlon["lng"], latlon["lat"]]
-                                }
-                            }];
-                            L.geoJson(geojsonFeature,
-                                {
-                                    onEachFeature: function (feature, layer) {
-                                        if (feature.properties && feature.properties.popupContent) {
-                                            layer.bindPopup(feature.properties.popupContent);
-                                        }
-                                        layer.myTag = "Shindo"
-                                    },
-                                    pointToLayer: function (feature, latlng) {
-                                        var myIcon = L.icon({
-                                            iconUrl: ImgUrl,
-                                            iconSize: [35, 35],
-                                            popupAnchor: [0, -40]
-                                        });
-                                        return L.marker(latlng, { icon: myIcon, zIndexOffset: element["scale"] });
-                                    }
-                                }
-                            ).addTo(map).bindPopup(AreaCodeToName(iii.toString()) + "<br>" + PointShindo);
-                            marker.addLayer(L.geoJson(geojsonFeature,
-                                {
-                                    onEachFeature: function (feature, layer) {
-                                        if (feature.properties && feature.properties.popupContent) {
-                                            layer.bindPopup(feature.properties.popupContent);
-                                        }
-                                        layer.myTag = "Shindo"
-                                    },
-                                    pointToLayer: function (feature, latlng) {
-                                        var myIcon = L.icon({
-                                            iconUrl: ImgUrl,
-                                            iconSize: [25, 25],
-                                            popupAnchor: [0, -40]
-                                        });
-                                        return L.marker(latlng, { icon: myIcon, zIndexOffset: element["scale"] });
-                                    }
-                                }
-                            ));
-                        }
-                    }
-                }
-            } else {
-                //震度速報
-
-                map.eachLayer(function (layer) {
-                    if (layer.myTag && layer.myTag === "Shindo") {
-                        map.removeLayer(layer)
-                    }
-                    if (layer.myTag && layer.myTag === "Shingen") {
-                        map.removeLayer(layer)
-                    }
-                    if (layer.myTag && layer.myTag === "Filled") {
-                        map.removeLayer(layer)
-                    }
-                })
-
-                QuakeJson[num]["points"].forEach(element => {
-                    var ImgUrl = "";
-                    var PointShindo = "";
-                    var PointColor;
-                    if (element["scale"] == 10) {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int1.jpg"
-                        PointShindo = "震度1";
-                        PointColor = Color_1;
-                    } else if (element["scale"] == 20) {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int2.jpg"
-                        PointColor = Color_2;
-                        PointShindo = "震度2";
-                    } else if (element["scale"] == 30) {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int3.jpg"
-                        PointColor = Color_3;
-                        PointShindo = "震度3";
-                    } else if (element["scale"] == 40) {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int4.jpg"
-                        PointColor = Color_4;
-                        PointShindo = "震度4";
-                    } else if (element["scale"] == 45) {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int50.jpg"
-                        PointColor = Color_50;
-                        PointShindo = "震度5弱";
-                    } else if (element["scale"] == 46) {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int50.jpg"
-                        PointColor = Color_50;
-                        PointShindo = "震度5弱以上と推定";
-                    } else if (element["scale"] == 50) {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int55.jpg"
-                        PointColor = Color_55;
-                        PointShindo = "震度5強";
-                    } else if (element["scale"] == 55) {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int60.jpg"
-                        PointColor = Color_60;
-                        PointShindo = "震度6弱";
-                    } else if (element["scale"] == 60) {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int65.jpg"
-                        PointColor = Color_65;
-                        PointShindo = "震度6強";
-                    } else if (element["scale"] == 70) {
-                        ImgUrl = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/int7.jpg"
-                        PointColor = Color_7;
-                        PointShindo = "震度7";
-                    }
-
-                    var area_Code = AreaNameToCode(element["addr"]);
-                    FillPolygon(1, area_Code, PointColor);
-
-                    var latlon;
-                    map.eachLayer(function (layer) {
-                        if (layer.myTag && layer.myTag === "Filled") {
-                            latlon = layer.getCenter();
-                        }
-                    })
-
-                    var geojsonFeature = [{
-                        "type": "Feature",
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [latlon["lng"], latlon["lat"]]
-                        }
-                    }];
-                    L.geoJson(geojsonFeature,
-                        {
-                            onEachFeature: function (feature, layer) {
-                                if (feature.properties && feature.properties.popupContent) {
-                                    layer.bindPopup(feature.properties.popupContent);
-                                }
-                                layer.myTag = "Shindo"
-                            },
-                            pointToLayer: function (feature, latlng) {
-                                var myIcon = L.icon({
-                                    iconUrl: ImgUrl,
-                                    iconSize: [40, 40],
-                                    popupAnchor: [0, -40]
-                                });
-                                return L.marker(latlng, { icon: myIcon, zIndexOffset: element["scale"] });
-                            }
-                        }
-                    ).addTo(map).bindPopup(element["addr"] + "<br>" + PointShindo);
-
-                    marker.addLayer(L.geoJson(geojsonFeature,
-                        {
-                            onEachFeature: function (feature, layer) {
-                                if (feature.properties && feature.properties.popupContent) {
-                                    layer.bindPopup(feature.properties.popupContent);
-                                }
-                                layer.myTag = "Shindo"
-                            },
-                            pointToLayer: function (feature, latlng) {
-                                var myIcon = L.icon({
-                                    iconUrl: ImgUrl,
-                                    iconSize: [25, 25],
-                                    popupAnchor: [0, -40]
-                                });
-                                return L.marker(latlng, { icon: myIcon, zIndexOffset: element["scale"] });
-                            }
-                        }
-                    ));
-                })
-            }
-
-            if (QuakeJson[num]["issue"]["type"] == "DetailScale" || QuakeJson[num]["issue"]["type"] == "ScaleAndDestination") {
-                if (Quake_Mode != 2) {
-                    map.fitBounds(marker.getBounds());
-                } else {
-                    map.fitBounds(marker.getBounds(), { maxZoom: 8 });
-                }
-            } else if (QuakeJson[num]["issue"]["type"] == "Destination") {
-                if (Number(QuakeJson[num]["earthquake"]["hypocenter"]["magnitude"]).toFixed(1) < 4.5) {
-                    map.flyTo(new L.LatLng(QuakeJson[num]["earthquake"]["hypocenter"]["latitude"], QuakeJson[num]["earthquake"]["hypocenter"]["longitude"]), 30 / (Number(QuakeJson[num]["earthquake"]["hypocenter"]["magnitude"]).toFixed(1)), { duration: 1 });
-                } else {
-                    map.flyTo(new L.LatLng(QuakeJson[num]["earthquake"]["hypocenter"]["latitude"], QuakeJson[num]["earthquake"]["hypocenter"]["longitude"]), 45 / (Number(QuakeJson[num]["earthquake"]["hypocenter"]["magnitude"]).toFixed(1)), { duration: 1 });
-                }
-            } else if (QuakeJson[num]["issue"]["type"] == "ScalePrompt") {
-                map.fitBounds(marker.getBounds(), { maxZoom: 8 });
-            } else if (QuakeJson[num]["issue"]["type"] == "Foreign") {
-                map.flyTo(new L.LatLng(QuakeJson[num]["earthquake"]["hypocenter"]["latitude"], QuakeJson[num]["earthquake"]["hypocenter"]["longitude"]), 3, { duration: 0.5 });
-            }
-        }
 
         async function GetJson() {
             const url = "https://ameuma773.github.io/EarthQuicklyForWeb/Source/JMAstations.json";
@@ -931,6 +504,13 @@
                 .then(response => response.json())
                 .then(data => {
                     JMAPointsJson = data;
+                });
+
+            const url2 = "https://ameuma773.github.io/EarthQuickly/Source/KyoshinMonitorPoints.json";
+            const response2 = await fetch(url2)
+                .then(response2 => response2.json())
+                .then(data => {
+                    KMoniPointsJson = data;
                 });
         }
 
@@ -982,14 +562,21 @@
             }
         }
 
-        function KMoni(lat, lon, color) {
+        function KMoni() {
+            KMoni_Clear();
+            var iii = 0;
+            KMoni_Colors.forEach(element => {
+                var circle = L.circleMarker([KMoniPointsJson[iii]["Location"]["Latitude"], KMoniPointsJson[iii]["Location"]["Longitude"]], {
+                    radius: 5,
+                    color: element,
+                    fillOpacity: 1
+                })
+                KMoni_Layer.addLayer(circle);
 
-            var circle = L.circleMarker(lat, lon, {
-                radius: 2.5,
-                color: color,
-                fillOpacity: 1
-            })
-            KMoni_Layer.addLayer(circle);
+                iii++;
+            });
+            KMoni_Add();
+            console.log("KMoni実行");
         }
 
         function KMoni_Add() {
