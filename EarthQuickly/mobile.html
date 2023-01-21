@@ -563,21 +563,20 @@
         }
 
         function KMoni() {
-            console.log("開始");
             KMoni_Clear();
             var iii = 0;
             KMoni_Colors.forEach(element => {
-                var circle = L.circleMarker([KMoniPointsJson[iii]["Location"]["Latitude"], KMoniPointsJson[iii]["Location"]["Longitude"]], {
-                    radius: 5,
-                    color: element,
-                    fillOpacity: 1
-                })
-                KMoni_Layer.addLayer(circle);
-
+                if (element != "null") {
+                    var circle = L.circleMarker([KMoniPointsJson[iii]["Location"]["Latitude"], KMoniPointsJson[iii]["Location"]["Longitude"]], {
+                        radius: 5,
+                        color: element,
+                        fillOpacity: 1
+                    })
+                    KMoni_Layer.addLayer(circle);
+                }
                 iii++;
             });
             KMoni_Add();
-            console.log("終了");
         }
 
         function KMoni_Add() {
