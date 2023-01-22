@@ -340,7 +340,7 @@
         var KMoniPointsJson;
         var KMoni_Colors = [];
 
-        var radius = 3;
+        var KMoni_radius = 3;
 
         var Color_1 = "#46646e";
         var MojiColor_1 = "#ffffff";
@@ -372,19 +372,19 @@
             }
 
             if (zoom > 10) {
-                radius = 15;
+                KMoni_radius = 15;
             } else if (zoom > 9) {
-                radius = 12;
+                KMoni_radius = 12;
             } else if (zoom > 8) {
-                radius = 10;
+                KMoni_radius = 10;
             } else if (zoom > 7) {
-                radius = 7;
+                KMoni_radius = 7;
             } else if (zoom > 6) {
-                radius = 4;
+                KMoni_radius = 4;
             } else if (zoom > 5) {
-                radius = 2;
+                KMoni_radius = 2;
             } else {
-                radius = 0.5;
+                KMoni_radius = 0.5;
             }
 
             //console.log("ズームレベル : " + zoom);
@@ -1002,7 +1002,7 @@
             KMoni_Colors.forEach(element => {
                 if (element != "null") {
                     var circle = L.circleMarker([KMoniPointsJson[iii]["Location"]["Latitude"], KMoniPointsJson[iii]["Location"]["Longitude"]], {
-                        radius: radius,
+                        radius: KMoni_radius,
                         color: element,
                         fillOpacity: 1
                     })
