@@ -342,6 +342,8 @@
 
         var KMoni_radius = 3;
 
+        var NowMode = 0;
+
         var Color_1 = "#46646e";
         var MojiColor_1 = "#ffffff";
         var Color_2 = "#1e6ee6";
@@ -998,6 +1000,9 @@
 
         function KMoni() {
             KMoni_Clear();
+            if(NowMode == 1){
+                return;
+            }
             var iii = 0;
             KMoni_Colors.forEach(element => {
                 if (element != "null") {
