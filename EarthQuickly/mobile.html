@@ -332,6 +332,10 @@
         var Quake_Mode = 1;
 
         var KMoni_Layer = new L.layerGroup();
+        var GPS_Layer = new L.layerGroup();
+
+        var GPS_Lat = 0;
+        var GPS_Lon = 0;
 
         //var JsonString_Japan = "";
         var JsonString_Saibun;
@@ -399,6 +403,8 @@
             //    })
 
             //FillPolygon(1,"511","#FF0000");
+
+            Show_GPS();
         });
 
         //var tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -495,8 +501,9 @@
         }
 
         geojson();
-        
+
         setInterval(KMoni, 1000);
+        setInterval(Show_GPS, 10000);
 
         var JMAPointsJson;
         var QuakeJson;
@@ -998,7 +1005,7 @@
 
         function KMoni() {
             KMoni_Clear();
-            if(NowMode == 1){
+            if (NowMode == 1) {
                 return;
             }
             var iii = 0;
@@ -1023,6 +1030,26 @@
         function KMoni_Clear() {
 
             KMoni_Layer.clearLayers();
+        }
+
+        function Show_GPS() {
+            GPS_Layer.clearLayers();
+
+            var circle = L.circleMarker([GPS_Lat, GPS_Lon], {
+                radius: 10,
+                color: "#FFFFFF",
+                fillOpacity: 1
+            })
+            GPS_Layer.addLayer(circle);
+
+            var circle2 = L.circleMarker([GPS_Lat, GPS_Lon], {
+                radius: 7,
+                color: "#008DFF",
+                fillOpacity: 1
+            })
+            GPS_Layer.addLayer(circle2);
+
+            map.addLayer(GPS_Layer);
         }
     </script>
 </body>
