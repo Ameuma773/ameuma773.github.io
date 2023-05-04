@@ -2,6 +2,7 @@ body {
     font-family: 'Noto Sans JP', sans-serif;
     text-align: center;
     margin: 0 auto;
+    background-color: #F5F5F5;
 }
 
 #body {
@@ -19,7 +20,7 @@ img {
 }
 
 header {
-    background-color: midnightblue;
+    background-color: #555555;
     color: white;
     position: absolute;
     width: 100%;
@@ -60,7 +61,7 @@ button:hover {
     right: 10px;
 }
 
-#f1 {
+/*#f1 {
     background-color: #ffcbc9;
     box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
     margin: 0 10%;
@@ -79,7 +80,47 @@ button:hover {
     box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
     margin: 0 10%;
     border-radius: 1em;
-}
+}*/
+
+#f1 h2 {
+    padding: 0.5em;
+    color: black;
+    background: #FFFFFF;
+    border-left: solid 5px #ffcbc9;
+    text-align: center;
+    margin: auto;
+    width: 500px;
+  }
+
+#f2 h2 {
+    padding: 0.5em;
+    color: black;
+    background: white;
+    border-left: solid 5px #77af79;
+    text-align: center;
+    margin: auto;
+    width: 500px;
+  }
+
+#f3 h2 {
+    padding: 0.5em;
+    color: black;
+    background: white;
+    border-left: solid 5px skyblue;
+    text-align: center;
+    margin: auto;
+    width: 500px;
+  }
+
+#f4 h2 {
+    padding: 0.5em;
+    color: black;
+    background: white;
+    border-left: solid 5px rgb(210, 210, 0);
+    text-align: center;
+    margin: auto;
+    width: 500px;
+  }
 
 #caution {
     color: white;
@@ -118,7 +159,7 @@ button:hover {
 }
 
 footer {
-    background-color: midnightblue;
+    background-color: #555555;
     position: relative;
     display: block;
     height: 50px;
@@ -167,7 +208,6 @@ footer {
     }
 
     header {
-        background-color: midnightblue;
         color: white;
         position: absolute;
         width: 100%;
@@ -196,7 +236,7 @@ footer {
         margin-right: auto;
     }
 
-    #f1 {
+    /*#f1 {
         background-color: #ffcbc9;
         box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
         margin: 0 1%;
@@ -215,7 +255,7 @@ footer {
         box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
         margin: 0 1%;
         border-radius: 1em;
-    }
+    }*/
 
     #caution {
         font-size: xx-small;
@@ -236,7 +276,6 @@ footer {
     }
 
     footer {
-        background-color: midnightblue;
         position: relative;
         display: block;
         height: 50px;
@@ -250,6 +289,19 @@ footer {
     #a {
         font-size: 12px;
     }
+
+    #f1 h2{
+        width: 370px;
+    }
+    #f2 h2{
+        width: 370px;
+    }
+    #f3 h2{
+        width: 370px;
+    }
+    #f4 h2{
+        width: 370px;
+    }
 }
 
 @media screen and (max-width: 400px) {
@@ -259,6 +311,19 @@ footer {
 
     #b {
         font-size: medium;
+    }
+    
+    #f1 h2{
+        width: 320px;
+    }
+    #f2 h2{
+        width: 320px;
+    }
+    #f3 h2{
+        width: 320px;
+    }
+    #f4 h2{
+        width: 320px;
     }
 }
 
