@@ -42,12 +42,12 @@ function load() {
     setTimeout(() => {
         var iframe = document.getElementById("map");
 
-        while (true) {
+        var a = setInterval(() => {
             if (iframe.contentWindow.document.getElementById("Loading").style.visibility == "hidden") {
                 iframe.contentWindow.QuakeJson = p2p_json;
                 iframe.contentWindow.QuakeSelect(int);
-                break;
+                clearInterval(a);
             }
-        }
+        }, 500);
     }, 1000);
 }
