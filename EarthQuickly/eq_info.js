@@ -38,14 +38,16 @@ function getParam(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function load(){
+function load() {
+    setTimeout(() => {
         var iframe = document.getElementById("map");
 
         while (true) {
-            if(iframe.contentWindow.document.getElementById("Loading").style.visibility == "hidden"){
+            if (iframe.contentWindow.document.getElementById("Loading").style.visibility == "hidden") {
                 iframe.contentWindow.QuakeJson = p2p_json;
                 iframe.contentWindow.QuakeSelect(int);
                 break;
             }
         }
+    }, 1000);
 }
