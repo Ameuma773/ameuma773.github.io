@@ -2,6 +2,8 @@ var p2p_json;
 
 var IDs = [];
 
+var int = -1;
+
 let url = 'https://api.p2pquake.net/v2/history?codes=551&limit=30';
 
 fetch(url)
@@ -20,12 +22,7 @@ fetch(url)
 
         const i = IDs.indexOf(ID);
         if (i != -1) {
-            setTimeout(() => {
-                var iframe = document.getElementById("map");
-
-                iframe.contentWindow.QuakeJson = p2p_json;
-                iframe.contentWindow.QuakeSelect(i);
-            }, 5000);
+            int = i;
         } else {
             alert("エラーが発生しました。\n有効な地震IDではありません。")
         }
@@ -39,4 +36,16 @@ function getParam(name, url) {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function load(){
+        var iframe = document.getElementById("map");
+
+        while (true) {
+            if(iframe.contentWindow.getElementById("Loading").style.visibility == "hidden"){
+                iframe.contentWindow.QuakeJson = p2p_json;
+                iframe.contentWindow.QuakeSelect(int);
+                break;
+            }
+        }
 }
