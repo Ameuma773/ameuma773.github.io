@@ -1,0 +1,50 @@
+body {
+    text-align: center;
+    font-family: "Koruri", sans-serif;
+  }
+
+#main_img {
+    width: 100%;
+}
+
+p {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 60px auto 40px;
+  }
+  table {
+    margin: 20px auto;
+  }
+  .tbl-r02 th {
+    background: #e9727e;
+    border: solid 1px #ccc;
+    color: #fff;
+    padding: 10px;
+  }
+  .tbl-r02 td {
+  　border: solid 1px #ccc;
+    padding: 10px;
+  }
+  
+  @media screen and (max-width: 640px) {
+    .last td:last-child {
+      border-bottom: solid 1px #ccc;
+      width: 100%;
+    }
+    .tbl-r02 {
+      width: 80%;
+    }
+    .tbl-r02 th,
+    .tbl-r02 td {
+  　　border-bottom: none;
+      display: block;
+      width: 100%;
+    }
+  }
+  
+#map {
+    width: 75%;
+    height: 37.5vw;
+    margin: 0 auto;
+}
