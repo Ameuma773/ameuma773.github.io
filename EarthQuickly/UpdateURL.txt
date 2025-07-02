@@ -1,1 +1,1 @@
-http://earthquickly.com/fw/files/EarthQuickly_0.11.0.zip
+https://github.com/Ameuma773/ameuma773.github.io/releases/download/v0.11.1/EarthQuickly.0.11.1.zip
